@@ -1,7 +1,7 @@
 api-example
 ===========
 
-A working example of the grails-api-toolkit plugin.
+A working example of the grails-api-toolkit implemented within a project.
 
 Key pieces are:
 
