@@ -1,4 +1,4 @@
-api-example
+api-example (last tested with 1.0.17)
 ===========
 
 A working example of the grails-api-toolkit implemented within a project.
