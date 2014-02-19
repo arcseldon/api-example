@@ -33,7 +33,6 @@ class TestController {
     @Secured(['ROLE_ADMIN','ROLE_USER'])
     @Api(method=['OPTIONS','HEAD','GET'],apiRoles=['ROLE_ADMIN','ROLE_USER'],hookRoles=['ROLE_ADMIN','ROLE_USER'])
     def show() {
-	println("show called...")
 	respond Test.get(params.id)
 	return
     }
@@ -73,7 +72,6 @@ class TestController {
     @Secured(['ROLE_ADMIN','ROLE_USER'])
     @Api(method=['OPTIONS','HEAD','PUT'],apiRoles=['ROLE_ADMIN','ROLE_USER'],hookRoles=['ROLE_ADMIN','ROLE_USER'])
     def update(Test testInstance) {
-		println("update called...")
 		if(apiToolkitService.isApiCall()){
 			println("is api...")
 			testInstance.testdata = params.testdata
@@ -89,7 +87,6 @@ class TestController {
 	        }
 	
 	        testInstance.save flush:true
-			println("instance saved...")
 			apiToolkitService.callHook('test',testInstance,'update')
 			respond Test.get(testInstance.id)
 			return
@@ -99,7 +96,7 @@ class TestController {
 
     @Transactional
     def delete() {
-		Test testInstance = new Test(params)
+	Test testInstance = new Test(params)
         if (testInstance == null) {
             notFound()
             return
