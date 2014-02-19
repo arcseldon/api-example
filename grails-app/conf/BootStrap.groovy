@@ -11,8 +11,8 @@ import grails.util.Environment
 
 class BootStrap {
 
-	def grailsApplication
-	def apiCacheService
+    def grailsApplication
+    def apiCacheService
 
 	
     def init = { servletContext ->
