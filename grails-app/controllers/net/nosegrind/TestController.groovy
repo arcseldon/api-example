@@ -13,29 +13,29 @@ class TestController {
 
     //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-	def apiToolkitService
-	ApiStatuses error = new ApiStatuses()
+    def apiToolkitService
+    ApiStatuses error = new ApiStatuses()
 	
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Test.list(params), model:[testInstanceCount: Test.count()]
     }
 
-	@Secured(['ROLE_ADMIN','ROLE_USER'])
-	@Api(method=['OPTIONS','HEAD','GET'],apiRoles=['ROLE_ADMIN','ROLE_USER'],hookRoles=['ROLE_ADMIN','ROLE_USER'])
-	def fred() {
-		if(apiToolkitService.isApiCall()){
-			respond Test.get(params.id)
-			return
-		}
-	}
-	
-	@Secured(['ROLE_ADMIN','ROLE_USER'])
-	@Api(method=['OPTIONS','HEAD','GET'],apiRoles=['ROLE_ADMIN','ROLE_USER'],hookRoles=['ROLE_ADMIN','ROLE_USER'])
-    def show() {
-		println("show called...")
+    @Secured(['ROLE_ADMIN','ROLE_USER'])
+    @Api(method=['OPTIONS','HEAD','GET'],apiRoles=['ROLE_ADMIN','ROLE_USER'],hookRoles=['ROLE_ADMIN','ROLE_USER'])
+    def fred() {
+	if(apiToolkitService.isApiCall()){
 		respond Test.get(params.id)
 		return
+	}
+    }
+	
+    @Secured(['ROLE_ADMIN','ROLE_USER'])
+    @Api(method=['OPTIONS','HEAD','GET'],apiRoles=['ROLE_ADMIN','ROLE_USER'],hookRoles=['ROLE_ADMIN','ROLE_USER'])
+    def show() {
+	println("show called...")
+	respond Test.get(params.id)
+	return
     }
 
     def create() {
@@ -70,8 +70,8 @@ class TestController {
     }
 
     @Transactional
-	@Secured(['ROLE_ADMIN','ROLE_USER'])
-	@Api(method=['OPTIONS','HEAD','PUT'],apiRoles=['ROLE_ADMIN','ROLE_USER'],hookRoles=['ROLE_ADMIN','ROLE_USER'])
+    @Secured(['ROLE_ADMIN','ROLE_USER'])
+    @Api(method=['OPTIONS','HEAD','PUT'],apiRoles=['ROLE_ADMIN','ROLE_USER'],hookRoles=['ROLE_ADMIN','ROLE_USER'])
     def update(Test testInstance) {
 		println("update called...")
 		if(apiToolkitService.isApiCall()){
@@ -126,8 +126,11 @@ class TestController {
         }
     }
 	
-	@Secured('permitAll')
-	def test(){
-		println(params)
-	}
+    /*
+    * HOOK CALLBACK EXAMPLE; hook up in UI to test your hook
+    */
+    @Secured('permitAll')
+    def test(){
+	println(params)
+    }
 }
